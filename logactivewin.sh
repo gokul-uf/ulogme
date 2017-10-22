@@ -24,15 +24,16 @@ do
 		# Assume XFCE folks use xscreensaver (the default).
 		screensaverstate=$(xscreensaver-command -time | cut -f2 -d: | cut -f2-3 -d' ')
 		if [[ $screensaverstate =~ "screen non-blanked" ]]; then islocked=false; fi
-	elif [[ $GDMSESSION == 'ubuntu' || $GDMSESSION == 'ubuntu-2d' || $GDMSESSION == 'gnome-shell' || $GDMSESSION == 'gnome-classic' || $GDMSESSION == 'gnome-fallback' || $GDMSESSION == 'cinnamon' ]]; then
+	elif [[ $GDMSESSION == 'ubuntu' || $GDMSESSION == 'cinnamon' || $GDMSESSION == 'ubuntu-2d' || $GDMSESSION == 'gnome-shell' || $GDMSESSION == 'gnome-classic' || $GDMSESSION == 'gnome-fallback' || $GDMSESSION == 'cinnamon' ]]; then
 		# Assume the GNOME/Ubuntu/cinnamon folks are using gnome-screensaver.
 		screensaverstate=$(gnome-screensaver-command -q 2>&1 /dev/null)
-		if [[ $screensaverstate =~ .*inactive.* ]]; then islocked=false; fi
+		if [[ $screensaverstate =~ .*not.* ]]; then islocked=false; fi
 	elif [[ $XDG_SESSION_DESKTOP == 'KDE' ]]; then
 		islocked=$(qdbus org.kde.screensaver /ScreenSaver org.freedesktop.ScreenSaver.GetActive)
 	else
 		# If we can't find the screensaver, assume it's missing.
 		islocked=false
+    echo "No SC found"
 	fi
 
 	if [ $islocked = true ]; then
@@ -69,7 +70,3 @@ do
 	lasttitle="$curtitle" # swap
 	sleep "$waittime" # sleep
 done
-
-
-
-
