@@ -26,6 +26,8 @@ var title_mappings = [
 {pattern : /__LOCKEDSCREEN/, mapto : 'Locked Screen'}, // __LOCKEDSCREEN is a special token
 {pattern : /TeXstudio/, mapto : 'LaTeX'},
 {pattern : /YouTube/, mapto : 'YouTube'},
+{pattern : /Twitter/, mapto : 'Twitter'},
+{pattern : /LinkedIn/, mapto : 'LinkedIn'},
 ];
 
 // be very careful with ordering in the above because titles
